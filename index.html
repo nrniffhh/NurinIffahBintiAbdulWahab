@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Portfolio Mobile Programming | Nurin Iffah</title>
+    
+    <!-- Memasukkan Font DM Serif Display untuk Logo & Syne/Plus Jakarta untuk Struktur -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght=700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #231B19;              /* Latar belakang utama coklat gelap */
+            
+            /* WARNA KOTAK PREMIUM (SEKATA) */
+            --card-brown-box: #3A2E2B;  /* Coklat Walnut Premium untuk kotak utama */
+            --card-white: #FFFFFF;      /* Kotak Putih Bersih untuk References */
+            
+            --primary: #FF8DA1;         /* Pastel Pink Cerah */
+            --secondary: #FFAEC1;       /* Baby Pink Lembut */
+            --dark-brown: #231B19;      /* Untuk elemen gelap */
+            
+            --text-title: #FFFFFF;
+            --text-body: #D4C9C5;       
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-body);
+            overflow-x: hidden;
+            padding: 0 40px;
+        }
+
+        /* --- NAV BAR TERAPUNG (LOGO KIRI + MENU KANAN) --- */
+        nav {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 80px);
+            max-width: 1300px;
+            background: rgba(35, 27, 25, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 40px;
+            border-radius: 100px;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- FONT LOGO EDITORIAL SERIF BARU (Klasik, Anggun & Kontras Tinggi) --- */
+        nav .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.7rem;          /* Saiz diubah suai untuk kejelasan font serif */
+            font-weight: 400;           /* Serif Display sedia ada tebal dan berlekuk indah */
+            font-style: italic;         /* Condong sedikit supaya nampak macam majalah kesihatan eksklusif */
+            letter-spacing: 0.02em;     /* Jarak sedikit longgar untuk gaya elegan */
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-logo span {
+            color: var(--primary);      /* Titik (.) pink */
+            font-style: normal;
+        }
+
+        nav .nav-logo:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 15px rgba(255, 141, 161, 0.5);
+            transform: translateY(-1px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+        }
+
+        nav ul li a {
+            color: #FFFFFF; 
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            opacity: 0.85;
+            border-radius: 50px;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- BAHAGIAN HEADER --- */
+        header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-top: 60px;
+        }
+
+        header .sub-badge {
+            font-size: 0.9rem;
+            color: var(--primary); 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 800;
+            line-height: 0.95;
+            color: var(--text-title);
+            letter-spacing: -0.04em;
+            margin-bottom: 30px;
+        }
+
+        header h1 span {
+            background: linear-gradient(to right, #FFAEC1, #FFC0CB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 650px;
+            color: var(--text-body);
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        /* --- SECTION BASE --- */
+        section {
+            max-width: 1300px;
+            margin: 0 auto 120px auto;
+            padding-top: 100px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--text-title);
+            margin-bottom: 50px;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- STYLES UTAMA SIGNATURE --- */
+        .profile-container, .lab-card, .project-row, .bento-card, .ai-disclosure-container {
+            background: var(--card-brown-box) !important; 
+            border: 3px solid #FFFFFF !important;         
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4) !important;
+        }
+
+        /* --- STUDENT PROFILE --- */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            padding: 50px;
+            border-radius: 32px;
+        }
+
+        .profile-info h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            color: #FFFFFF;                         
+            margin-bottom: 20px;
+        }
+
+        .meta-display-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .meta-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);                  
+            font-weight: 700;
+        }
+
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #FFFFFF;                         
+        }
+
+        .sdg-card-inline {
+            background: rgba(255, 255, 255, 0.05);  
+            border: 1px solid rgba(255, 141, 161, 0.3);
+            padding: 24px;
+            border-radius: 20px;
+            margin-top: 30px;
+            color: var(--text-body);
+        }
+
+        .sdg-card-inline h4 {
+            font-family: 'Syne', sans-serif;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .profile-image-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 30px 90px 30px 90px;
+            border: 2px solid #FFFFFF;              
+            max-width: 320px;
+            justify-self: center;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 22px 80px 22px 80px;
+        }
+
+        /* --- MASONRY LABS --- */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 35px;
+        }
+
+        .lab-card {
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lab-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px rgba(255, 141, 161, 0.15) !important;
+        }
+
+        .lab-card.wide-box { grid-column: span 7; }
+        .lab-card.tall-box { grid-column: span 5; }
+        .lab-card.full-box { grid-column: span 12; display: grid; grid-template-columns: 1.1fr 1fr; }
+
+        .video-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .lab-card.full-box .video-box, .project-row .video-box {
+            padding-bottom: 0;
+            height: 100%;
+            min-height: 250px;
+        }
+
+        .video-box iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        .lab-content {
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #FFFFFF; 
+        }
+
+        .lab-content .lab-num {
+            font-size: 0.8rem;
+            color: var(--primary); 
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .lab-content h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .lab-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-body);
+        }
+
+        .lab-reflection {
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            color: #FFFFFF;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* --- CAPSTONE PROJECTS --- */
+        .project-split-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px; 
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr; 
+            gap: 40px;
+            align-items: stretch;
+            padding: 30px; 
+            border-radius: 24px; 
+            color: #FFFFFF;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-row:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px rgba(255, 141, 161, 0.15) !important;
+        }
+
+        .project-row.reverse {
+            direction: rtl;
+        }
+
+        .project-row.reverse .project-text-side {
+            direction: ltr;
+        }
+
+        .project-text-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-text-side h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem; 
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .problem-box {
+            background: rgba(255, 255, 255, 0.04); 
+            border: 1px solid rgba(255, 141, 161, 0.2);
+            padding: 18px; 
+            border-radius: 14px;
+            font-size: 0.9rem; 
+            margin-bottom: 15px;
+            color: var(--text-body);
+        }
+
+        .problem-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .project-text-side .lab-reflection {
+            padding: 15px;
+            font-size: 0.88rem;
+        }
+
+        .btn-git {
+            display: inline-block;
+            background: #FFFFFF; 
+            color: var(--dark-brown);
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            margin-top: 15px;
+            align-self: flex-start;
+        }
+
+        .btn-git:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- BENTO GRID LEARNING JOURNEY --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .bento-card {
+            border-radius: 28px;
+            padding: 35px;
+            color: #FFFFFF !important; 
+        }
+
+        .bento-card.span-2 { 
+            grid-column: span 2; 
+        }
+
+        .bento-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+        }
+
+        .bento-card p {
+            color: var(--text-body);
+        }
+
+        .skills-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-pill {
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 141, 161, 0.2);
+        }
+
+        /* --- REFERENCES LIST STYLE --- */
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .ref-card {
+            background: var(--card-white) !important;       
+            border: 3px solid #FFFFFF !important;           
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+        }
+
+        .ref-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .ref-card h4 {
+            color: #FF6B8B !important;            
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .ref-card p {
+            color: #FF8DA1 !important;                      
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* --- AI DISCLOSURE CONTAINER --- */
+        .ai-disclosure-container {
+            display: grid;
+            grid-template-columns: 0.1fr 1.9fr;
+            gap: 30px;
+            align-items: center;
+            padding: 40px;
+            border-radius: 32px;
+            margin-top: 60px;
+        }
+
+        .ai-disclosure-container h4 {
+            color: #FFFFFF;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .ai-disclosure-container p {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        /* --- FOOTER MODEN --- */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 50px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #A99B96;
+        }
+
+        footer strong { color: #fff; }
+
+        /* --- RESPONSIVE LAYOUT --- */
+        @media (max-width: 1024px) {
+            nav {
+                width: 90%;
+                border-radius: 30px;
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            header {
+                padding-top: 140px;
+            }
+            .profile-container, .project-row, .lab-card.full-box, .ai-disclosure-container {
+                grid-template-columns: 1fr !important;
+                gap: 35px;
+            }
+            .profile-container, .project-row, .ai-disclosure-container { padding: 25px; }
+            .lab-card.wide-box, .lab-card.tall-box { grid-column: span 12; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.span-2 { grid-column: span 1; }
+            body { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR TERAPUNG (LOGO BRAND SERIF EDITORIAL + MENU KANAN) -->
+    <nav>
+        <!-- Font Menggunakan DM Serif Display: Berkontras Tinggi, Mewah & Tidak Bosan -->
+        <a href="#home" class="nav-logo">DailyFit<span>.</span></a>
+        
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#labs">Labs</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="sub-badge">e-Portfolio &bull; TK2323/TM2213 Mobile Application Programming</div>
+        <h1>DailyFit <span>Mobile App</span></h1>
+        <p>DailyFit is an advanced fitness and physical lifestyle application designed to empower users to meet their ultimate dynamic bodily goals. Through comprehensive daily workout structures, precise caloric ingestion monitoring, localized mechanical track sheets, and systematic hydration milestones, DailyFit drives meaningful, sustainable self-care transformations.</p>
+    </header>
+
+    <section>
+        <!-- STUDENT PROFILE -->
+        <div class="profile-container">
+            <div class="profile-info">
+                <h3>Student Profile</h3>
+                <div class="meta-display-list">
+                    <div class="meta-item"><span class="meta-label">Student Name</span><span class="meta-value">Nurin Iffah Binti Abdul Wahab</span></div>
+                    <div class="meta-item"><span class="meta-label">Matric No.</span><span class="meta-value">A209498</span></div>
+                    <div class="meta-item"><span class="meta-label">Programme</span><span class="meta-value">Bachelor of Software Engineering</span></div>
+                    <div class="meta-item"><span class="meta-label">Instructor</span><span class="meta-value">Dr.Nazatul Aini</span></div>
+                </div>
+                
+                <div class="sdg-card-inline">
+                    <h4>SDG 3: Good Health & Well-Being</h4>
+                    <p>Promoting dynamic physical health transformations and sustainable bodily wellness tracking via highly accessible, modern mobile software systems.</p>
+                </div>
+            </div>
+            <div class="profile-image-box">
+                <img src="https://raw.githubusercontent.com/nrniffhh/nuriniffahbintiabdulwahab/main/profile.png" alt="Nurin Iffah" class="profile-avatar">
+            </div>
+        </div>
+    </section>
+
+    <section id="labs">
+        <h2 class="section-title">Learning Labs <span style="font-size: 1.2rem; color: var(--text-body); font-family: 'Plus Jakarta Sans'; font-weight: normal; margin-left: 10px;">/ Hands-On Lab Sessions</span></h2>
+        <div class="masonry-grid">
+            
+            <!-- Lab 1 (Wide Box) -->
+            <div class="lab-card wide-box">
+                <div class="video-box"><iframe src="https://www.youtube.com/embed/0ZPp_-zug-g" allowfullscreen></iframe></div>
+                <div class="lab-content">
+                    <span class="lab-num">Lab 1</span>
+                    <h3>UI Layouts with Jetpack Compose</h3>
+                    <p>Explored fundamental Compose layout components — Column, Row, and Box — to build structured and responsive user interfaces.</p>
+                    <div class="lab-reflection">
+                        <strong>Reflection:</strong> In Lab 1, I learned the fundamentals of Jetpack Compose layouts using components such as Column, Row, and Box. This lab helped me understand how to arrange UI elements effectively and create a structured user interface. It provided the vital spatial engineering foundation for developing the screens inside my DailyFit application.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab 2 (Tall Box) -->
+            <div class="lab-card tall-box">
+                <div class="video-box"><iframe src="https://www.youtube.com/embed/Hur30-vJ4MM" allowfullscreen></iframe></div>
+                <div class="lab-content">
+                    <span class="lab-num">Lab 2</span>
+                    <h3>Interaction & State Management</h3>
+                    <p>Built interactive UIs using TextField and Button components, managing dynamic state mutations natively through standard modern Android tools.</p>
+                    <div class="lab-reflection">
+                        <strong>Reflection:</strong> In Lab 2, I learned how to create interactive user interfaces using TextField, Button, and state management with remember and mutableStateOf mechanics. I gained a better understanding of how user input can update the UI dynamically through recomposition. This knowledge was useful when implementing immediate fitness user interactions in my application.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab 3 (Tall Box) -->
+            <div class="lab-card tall-box">
+                <div class="video-box"><iframe src="https://www.youtube.com/embed/GaY-duszj3U" allowfullscreen></iframe></div>
+                <div class="lab-content">
+                    <span class="lab-num">Lab 3</span>
+                    <h3>Material Design & Theming</h3>
+                    <p>Applied Material Design principles — custom themes, card components, and smooth animations — to produce a polished, consistent visual experience.</p>
+                    <div class="lab-reflection">
+                        <strong>Reflection:</strong> In Lab 3, I learned how to apply Material Design principles by creating a custom theme, using cards, and adding animations. I understood the importance of consistent colors, typography, and user experience in application design. This lab helped improve the visual appearance and usability of my app.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab 4 (Wide Box) -->
+            <div class="lab-card wide-box">
+                <div class="video-box"><iframe src="https://www.youtube.com/embed/95p0WMKozqg" allowfullscreen></iframe></div>
+                <div class="lab-content">
+                    <span class="lab-num">Lab 4</span>
+                    <h3>Navigation & ViewModel</h3>
+                    <p>Implemented multi-screen view management with standard NavHost routers, and managed shared data pipelines via ViewModel state mechanisms.</p>
+                    <div class="lab-reflection">
+                        <strong>Reflection:</strong> In Lab 4, I learned how to implement navigation between multiple screens using NavHost and routes. I also explored ViewModel, UiState, and StateFlow for managing shared data across screens. Although these concepts were challenging at first, they helped me understand how modern Android applications manage navigation and state.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab 5 (Full Split Box) -->
+            <div class="lab-card full-box">
+                <div class="video-box"><iframe src="https://www.youtube.com/embed/L-CZsNz3PrM" allowfullscreen></iframe></div>
+                <div class="lab-content">
+                    <span class="lab-num">Lab 5</span>
+                    <h3>Room Database & Persistence</h3>
+                    <p>Configured Room Database engines for persistent local state tracking, seamlessly integrating reactive DAO contracts, repository interfaces, and state-holding viewmodels.</p>
+                    <div class="lab-reflection">
+                        <strong>Reflection:</strong> In Lab 5, I learned how to use Room Database for local data persistence. I gained experience with DAO, Database, Repository, and ViewModel integration to store and retrieve data efficiently. This lab helped me understand how applications can maintain historical workout data even after being closed and reopened.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Capstone Projects <span style="font-size: 1.2rem; color: var(--text-body); font-family: 'Plus Jakarta Sans'; font-weight: normal; margin-left: 10px;">/ Building DailyFit</span></h2>
+        <div class="project-split-container">
+            
+            <!-- Project 1 -->
+            <div class="project-row">
+                <div class="video-box" style="border-radius: 16px; overflow: hidden;"><iframe src="https://www.youtube.com/embed/8kzB28Chq5A" allowfullscreen></iframe></div>
+                <div class="project-text-side">
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Project 1 &bull; Lab 4 Architecture</span>
+                    <h3>DailyFit — Navigation & Multi-Screen</h3>
+                    
+                    <div class="problem-box">
+                        <strong>Problem Statement</strong>
+                        This milestone integration establishes multiple reactive view configurations backed by fluid navigation routes and centralized state models across Login, Exercise Monitoring, Routine Hub, and Activity Logging views.
+                    </div>
+                    
+                    <div class="lab-reflection">
+                        <strong>Lessons Learned:</strong> In this project, I learned how to implement navigation using NavHost and manage shared data using ViewModel. I also gained experience in handling multiple screens and passing data between them.
+                    </div>
+                    <a href="https://github.com/nrniffhh/A209498_NurinIffah_DrNazatulAini_project1" class="btn-git" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-row reverse">
+                <div class="video-box" style="border-radius: 16px; overflow: hidden;"><iframe src="https://www.youtube.com/embed/3LBfmh9d6ds?si=Ecw9sq2AdGt7FHSv" allowfullscreen></iframe></div>
+                <div class="project-text-side">
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Project 2 &bull; Full-Stack Core</span>
+                    <h3>DailyFit — Full-Stack Integration</h3>
+                    
+                    <div class="problem-box">
+                        <strong>Problem Statement</strong>
+                        This system expands backend parameters via local Room database engines, Firebase remote synchronizations, Retrofit APIs, and integrated hardware location hooks.
+                    </div>
+                    
+                    <div class="lab-reflection">
+                        <strong>Lessons Learned:</strong> In this project, I learned how to integrate advanced Android components such as Room Database, Firebase Firestore, Retrofit API, and hardware location sensors. This improved my understanding of data persistence.
+                    </div>
+                    <a href="https://github.com/nrniffhh/A209498_NurinIffah_DrNazatulAini_project2" class="btn-git" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="journey">
+        <h2 class="section-title">Development Horizon</h2>
+        <div class="bento-grid">
+            
+            <div class="bento-card span-2">
+                <h3>Learning Journey</h3>
+                <p style="line-height: 1.8; font-size: 1.05rem;">Throughout this course, I learned how to develop a mobile application progressively, starting from basic Jetpack Compose layouts in Lab 1 to implementing advanced features in Project 2. Along the way, I gained experience with state management, navigation, ViewModel, Room Database, Firebase Firestore, API integration using Retrofit, and hardware location sensor tracking. Some concepts, especially ViewModel, StateFlow, and Room architecture, were challenging for me at first and required additional practice to understand. However, by applying these concepts in my DailyFit application, I developed a better understanding of how different Android components work together to build a complete and functional mobile application.</p>
+            </div>
+
+            <div class="bento-card" id="skills">
+                <h3>Tech Stack</h3>
+                <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 20px;">Skills & Technologies</p>
+                <div class="skills-flex">
+                    <span class="skill-pill">Kotlin</span>
+                    <span class="skill-pill">Jetpack Compose</span>
+                    <span class="skill-pill">MVVM Architecture</span>
+                    <span class="skill-pill">Navigation Compose</span>
+                    <span class="skill-pill">Room Database</span>
+                    <span class="skill-pill">Firebase Firestore</span>
+                    <span class="skill-pill">Retrofit</span>
+                    <span class="skill-pill">Gson</span>
+                    <span class="skill-pill">Location Services (GPS)</span>
+                    <span class="skill-pill">StateFlow</span>
+                    <span class="skill-pill">Coroutines</span>
+                    <span class="skill-pill">Material 3</span>
+                    <span class="skill-pill">Android Studio</span>
+                    <span class="skill-pill">Git</span>
+                    <span class="skill-pill">GitHub</span>
+                    <span class="skill-pill">REST API Integration</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="resources">
+        <h2 class="section-title">References <span style="font-size: 1.2rem; color: var(--text-body); font-family: 'Plus Jakarta Sans'; font-weight: normal; margin-left: 10px;">/ Libraries & Resources</span></h2>
+        
+        <!-- REFERENCES GRID -->
+        <div class="ref-grid">
+            <div class="ref-card"><h4>Room Database</h4><p>Local data persistence for exercise routines, caloric counts, and systematic fitness metadata history logs.</p></div>
+            <div class="ref-card"><h4>Firebase Firestore</h4><p>Cloud backup and remote storage operations for cloud synchronization of user metrics profiles.</p></div>
+            <div class="ref-card"><h4>DummyJSON API</h4><p>Motivational athletic quotes and lifestyle tracking targets fetched dynamically via REST API communication routes.</p></div>
+            <div class="ref-card"><h4>Retrofit</h4><p>Type-safe declarative HTTP client pipeline managing core system network communications across Android endpoints.</p></div>
+            <div class="ref-card"><h4>Gson Converter</h4><p>JSON serialization and deserialization processing architectures for seamless network payload data parsing.</p></div>
+            <div class="ref-card"><h4>Location API & Hardware Sensors</h4><p>Embedded location telemetry systems logging real-time user movement velocity and geographic routing paths natively.</p></div>
+            <div class="ref-card"><h4>Jetpack Navigation</h4><p>Compose-native structural routing managing safe multi-screen navigation state transformations via NavHost structures.</p></div>
+            <div class="ref-card"><h4>Kotlin Coroutines & StateFlow</h4><p>Asynchronous multi-thread execution architectures and reactive state management updates across UI views.</p></div>
+            <div class="ref-card"><h4>Material 3 Components</h4><p>Google's modern components delivering accessible layout frameworks and refined professional styles.</p></div>
+        </div>
+
+        <!-- AI DISCLOSURE BOX -->
+        <div class="ai-disclosure-container">
+            <span style="font-size: 2.2rem; display: block; text-align: center;">🤖</span>
+            <div>
+                <h4>AI Assistance Disclosure</h4>
+                <p>ChatGPT (OpenAI) was used as a learning aid, debugging assistant, and reference tool during development, including guidance on Kotlin, Jetpack Compose, Room Database, Firebase Firestore integration, API consumption, debugging, and application architecture.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>NURIN IFFAH BINTI ABDUL WAHAB</strong> &nbsp;&bull;&nbsp; Matric No. A209498 &nbsp;&bull;&nbsp; Software Engineering</p>
+        <p>Instructor: Nazatul Aini &nbsp;&bull;&nbsp; &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
